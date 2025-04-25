@@ -1,4 +1,4 @@
-# S&P 500 Financial Analysis with Snowflake and Streamlit
+# S&P 500 News Article Analysis with Snowflake and Streamlit
 
 This repository provides a framework for analyzing S&P 500 companies using Snowflake for data storage and processing, and Streamlit for interactive data visualization. The project includes fuzzy matching of company names in articles and sentiment analysis of article content.
 
