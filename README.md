@@ -53,10 +53,18 @@ AUTO_SUSPEND = 60;
 Follow these steps to import the necessary data:
 
 #### Import S&P 500 Reference Data
-1. Upload the `SP_500.csv` file into `FWDDEMO.PUBLIC`
-2. Upload the `S&P_500_Finance_Info.csv` file into `FWDDEMO.PUBLIC`
-3. Upload the `vader_lexicon.txt` file into `FWDDEMO.PUBLIC`
-4. Upload the `fwd_demo.yaml` file into `FWDDEMO.DEMO.STG_DEMO`
+1. Upload the `SP_500.csv` file into `FWDDEMO.PUBLIC` schema
+   - Rename columns name: 
+     - `SYMBOL`, `SECURITY`, `GICS_SECTOR`, `GICS_SUB_INDUSTRY`, `HEADQUARTERS_LOCATION`, `DATE_ADDED`, `CIK`, `FOUNDED`
+
+2. Upload the `S&P_500_Finance_Info.csv` file into `FWDDEMO.PUBLIC` schema
+   - Rename columns name: 
+     - `SYMBOL`, `NAME`, `SECTOR`, `PRICE`, `PRICE_EARNINGS`, `DIVIDEND_YIELD`, `EARNINGS_SHARE`, `"52_Week_Low"`, `"52_Week_High"`, `MARKET_CAP`, `EBITDA`, `PRICE_SALES`, `PRICE_BOOK`, `SEC_FILINGS`
+
+3. Upload the `vader_lexicon.txt` file into `FWDDEMO.PUBLIC` schema
+
+4. Upload the `fwd_demo.yaml` file into `FWDDEMO.DEMO.STG_DEMO` stage
+
 
 #### Import S&P 500 Domain Visit Data
 1. Go to Snowflake Marketplace
