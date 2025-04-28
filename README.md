@@ -97,7 +97,7 @@ Another Python code provided in `FWD_SP500_CORTEX_ANALYST_ENVIRONMENT.ipynb` fil
 
 ### 5. Alter column SP_500_Symbol from varchar to varant 
 
-Alter column SP_500_Symbol from varchar to varant 
+Copy the code below into Snoflake worksheet
 
 ```SQL
 -- Alter column SP_500_Symbol from varchar to varant 
