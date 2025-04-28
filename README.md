@@ -94,7 +94,30 @@ Another Python code provided in `FWD_SP500_CORTEX_ANALYST_ENVIRONMENT.ipynb` fil
 3. Sentiment scores are calculated for each article using custom function
 4. Results are saved to `FWDDEMO.PUBLIC.ArticleContentScraped_Sentiment`
 
-### 5. Creating the Final S&P 500 Articles View
+
+### 5. Alter column SP_500_Symbol from varchar to varant 
+
+Alter column SP_500_Symbol from varchar to varant 
+
+```SQL
+-- Alter column SP_500_Symbol from varchar to varant 
+ALTER TABLE FWDDEMO.PUBLIC.ARTICLECONTENTSCRAPED_SENTIMENT
+ADD COLUMN SP_500_Symbol_variant VARIANT;
+
+UPDATE FWDDEMO.PUBLIC.ARTICLECONTENTSCRAPED_SENTIMENT
+SET SP_500_Symbol_variant = TO_VARIANT("SP_500_Symbol");
+
+UPDATE FWDDEMO.PUBLIC.ARTICLECONTENTSCRAPED_SENTIMENT
+SET SP_500_Symbol_variant = PARSE_JSON("SP_500_Symbol");
+
+ALTER TABLE FWDDEMO.PUBLIC.ARTICLECONTENTSCRAPED_SENTIMENT
+DROP COLUMN "SP_500_Symbol";
+
+ALTER TABLE FWDDEMO.PUBLIC.ARTICLECONTENTSCRAPED_SENTIMENT
+RENAME COLUMN SP_500_Symbol_variant TO SP_500_Symbol;
+```
+
+### 6. Creating the Final S&P 500 Articles View
 
 After running both the fuzzy matching and sentiment analysis applications, create the final view:
 
