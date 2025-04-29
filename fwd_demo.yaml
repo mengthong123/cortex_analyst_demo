@@ -1,0 +1,1838 @@
+name: fwd_demo
+tables:
+  - name: SP_500
+    base_table:
+      database: FWDDEMO
+      schema: PUBLIC
+      table: SP_500_UPDATE
+    dimensions:
+      - name: TICKER
+        expr: TICKER
+        data_type: VARCHAR(16777216)
+        description: The ticker symbol of the company listed on the S&P 500 index, used to uniquely identify the company's stock on stock exchanges.
+        sample_values:
+          - ATO
+          - EPAM
+          - EQR
+        synonyms:
+          - stock_symbol
+          - symbol
+          - stock_code
+          - company_code
+          - security_id
+          - instrument_id
+      - name: COMPANY
+        expr: NAME
+        data_type: VARCHAR(16777216)
+        description: The column "NAME" represents the names of companies listed on the S&P 500 index, which is a stock market index that represents the market value of 500 large, publicly traded companies in the United States.
+        sample_values:
+          - Charles River Laboratories
+          - Elevance Health
+          - Morgan Stanley
+        synonyms:
+          - company_name
+          - organization_name
+          - firm_name
+          - corporate_name
+          - entity_name
+          - business_name
+      - name: SECTOR
+        expr: SECTOR
+        data_type: VARCHAR(16777216)
+        description: The sector classification of the company, which groups similar industries together, such as Industrials, Health Care, etc.
+        sample_values:
+          - Industrials
+          - Health Care
+        synonyms:
+          - industry_category
+          - market_segment
+          - business_sector
+          - economic_sector
+          - field_of_operation
+      - name: INDUSTRY
+        expr: INDUSTRY
+        data_type: VARCHAR(16777216)
+        description: The industry classification of the company, representing the specific sector or category in which the company operates.
+        sample_values:
+          - Gas Utilities
+          - IT Consulting & Other Services
+          - Industrial Machinery & Supplies & Components
+        synonyms:
+          - sector
+          - field
+          - market
+          - category
+          - classification
+          - business_area
+          - domain
+          - trade
+          - line_of_business
+      - name: HEADQUARTERS
+        expr: HEADQUARTERS
+        data_type: VARCHAR(16777216)
+        description: The city and state where the company is headquartered.
+        sample_values:
+          - Wilmington, Massachusetts
+          - Indianapolis, Indiana
+          - Issaquah, Washington
+        synonyms:
+          - main_office
+          - corporate_office
+          - company_headquarters
+          - global_headquarters
+          - headquarters_location
+          - main_location
+          - corporate_address
+          - company_address
+          - global_office
+      - name: FOUNDED
+        expr: FOUNDED
+        data_type: VARCHAR(16777216)
+        description: The year in which the company was founded.
+        sample_values:
+          - 2014 (1946)
+          - '1958'
+          - '1869'
+        synonyms:
+          - established
+          - founded_year
+          - inception_date
+          - start_date
+          - incorporation_date
+          - year_established
+          - founding_date
+      - name: SEC_FILINGS
+        expr: SEC_FILINGS
+        data_type: VARCHAR(16777216)
+        description: Links to the SEC EDGAR database for the company's filings, providing access to publicly available financial reports and other regulatory documents.
+        sample_values:
+          - http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AOS
+          - http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=CLX
+        synonyms:
+          - sec_reports
+          - regulatory_filings
+          - financial_disclosures
+          - corporate_filings
+          - edgar_filings
+      - name: CIK
+        expr: CIK
+        data_type: NUMBER(38,0)
+        description: Central Index Key (CIK) is a unique identifier assigned by the U.S. Securities and Exchange Commission (SEC) to identify companies that have filed financial reports with the SEC.
+        sample_values:
+          - '1100682'
+          - '1156039'
+          - '31791'
+        synonyms:
+          - central_index_key
+          - company_identification_number
+          - edgar_id
+          - entity_id
+          - sec_registration_number
+          - company_key
+          - identifier
+          - registration_number
+      - name: DATE_ADDED
+        expr: DATE_ADDED
+        data_type: DATE
+        description: The date when the company was added to the S&P 500 index.
+        sample_values:
+          - '2021-05-14'
+          - '2017-06-19'
+          - '1993-12-01'
+        synonyms:
+          - added_on
+          - entry_date
+          - listing_date
+    time_dimensions: []
+    facts:
+      - name: PRICE
+        expr: PRICE
+        data_type: NUMBER(38,2)
+        description: The current market price of the stock.
+        sample_values:
+          - '56.27'
+          - '76.07'
+        synonyms:
+          - cost
+          - value
+          - amount
+          - rate
+          - worth
+          - tariff
+          - fare
+          - expense
+          - charge
+          - quotation
+      - name: PRICE_EARNINGS
+        expr: PRICE_EARNINGS
+        data_type: NUMBER(38,2)
+        description: The price-to-earnings (P/E) ratio, which represents the ratio of a company's stock price to its earnings per share, indicating how much investors are willing to pay for each dollar of earnings.
+        sample_values:
+          - '19.41'
+          - '16.45'
+          - '27.86'
+        synonyms:
+          - price_to_earnings_ratio
+          - p_e_ratio
+          - earnings_multiple
+          - price_per_earnings
+          - earnings_price_ratio
+      - name: DIVIDEND_YIELD
+        expr: DIVIDEND_YIELD
+        data_type: NUMBER(38,9)
+        description: The dividend yield is the ratio of the annual dividend payment per share to the stock's current price per share, expressed as a percentage, indicating the return on investment from dividend payments alone.
+        sample_values:
+          - '2.500868300'
+          - '2.891845000'
+          - '3.698776000'
+        synonyms:
+          - dividend_rate
+          - dividend_percentage
+          - yield_percentage
+          - dividend_return
+          - payout_yield
+          - annual_yield
+      - name: EARNINGS_SHARE
+        expr: EARNINGS_SHARE
+        data_type: NUMBER(38,2)
+        description: Earnings per share (EPS) is the portion of a company's profit allocated to each outstanding share of common stock, serving as an indicator of a company's profitability and a key metric for investors to evaluate a stock's value.
+        sample_values:
+          - '0.26'
+          - '1.24'
+        synonyms:
+          - EPS
+          - earnings_per_share
+          - net_income_per_share
+          - profit_per_share
+          - earnings_per_common_share
+      - name: LOW_52_WEEKS
+        expr: LOW_52_WEEKS
+        data_type: NUMBER(38,4)
+        description: The lowest price of the stock over the past 52 weeks.
+        sample_values:
+          - '64.6000'
+          - '43.9800'
+          - '105.3600'
+        synonyms:
+          - 52_week_low
+          - lowest_price
+          - minimum_price
+          - lowest_value
+          - low_point
+          - minimum_value
+          - lowest_level
+          - bottom_price
+      - name: HIGH_52_WEEKS
+        expr: HIGH_52_WEEKS
+        data_type: NUMBER(38,6)
+        description: The highest price of the stock over the past 52 weeks.
+        sample_values:
+          - '111.900000'
+          - '84.210000'
+        synonyms:
+          - 52_week_high
+          - highest_price
+          - peak_price
+          - maximum_price
+          - highest_value
+          - peak_value
+          - max_price_52_weeks
+          - highest_52_week_price
+      - name: MARKET_CAP
+        expr: MARKET_CAP
+        data_type: NUMBER(38,2)
+        description: The total market capitalization of the company, representing the total value of all outstanding shares.
+        sample_values:
+          - '102121042306.00'
+          - '80410990000.00'
+        synonyms:
+          - market_value
+          - market_size
+          - capitalization
+          - market_capitalization
+          - total_market_value
+          - company_size
+          - enterprise_value
+      - name: EBITDA
+        expr: EBITDA
+        data_type: NUMBER(38,2)
+        description: Earnings Before Interest, Taxes, Depreciation, and Amortization, representing a company's profitability, calculated by adding back non-operating items to net income, such as interest, taxes, and non-cash expenses like depreciation and amortization.
+        sample_values:
+          - '10310000000.00'
+          - '531800000.00'
+        synonyms:
+          - Earnings Before Interest Taxes Depreciation and Amortization
+          - Operating Profit
+          - Net Operating Profit
+          - EBIT
+          - Earnings Before Interest and Taxes
+      - name: PRICE_SALES
+        expr: PRICE_SALES
+        data_type: NUMBER(38,8)
+        description: The ratio of stock price to sales per share, calculated by dividing the current stock price by the total sales per share for the most recent 12 months, indicating how much investors are willing to pay for each dollar of sales.
+        sample_values:
+          - '2.93488570'
+          - '7.82832770'
+        synonyms:
+          - price_to_sales_ratio
+          - sales_multiple
+          - price_to_revenue
+          - revenue_multiple
+          - sales_price_ratio
+          - price_to_turnover
+      - name: PRICE_BOOK
+        expr: PRICE_BOOK
+        data_type: NUMBER(38,2)
+        description: The price-to-book ratio, which compares a company's market capitalization to its book value, indicating how much investors are willing to pay for each dollar of a company's assets.
+        sample_values:
+          - '6.35'
+          - '3.19'
+          - '4.01'
+        synonyms:
+          - price_to_book_value
+          - price_to_book_ratio
+          - book_value_multiple
+          - book_price_ratio
+          - price_to_equity_ratio
+    description: This table stores information about the companies listed in the S&P 500 index, including their financial metrics, company details, and stock performance indicators.
+    synonyms:
+      - SP500
+      - S&P 500
+      - Standard and Poors 500
+      - S and P 500
+      - Standard and Poor's 500
+      - Stock Market Index
+      - S&P500
+      - SP500 Index
+      - Standard and Poors
+      - S and P Index
+      - S&P
+      - SP500 Stocks
+      - S&P500 Stocks
+      - US Stocks
+      - US Index
+      - US Market Index
+      - S&P500 Market Index
+      - Standard and Poors 500 Index
+      - S and P 500 Index
+      - SP500 Market
+      - S&P Market
+      - US Stocks Index
+      - US Market
+      - S&P500 Stocks Index
+      - S&P500 Market
+      - S&P Index
+      - SP500 Stocks Index
+      - S&P500 Stocks Market
+      - S&P500 US
+      - S&P US
+      - SP500 US
+      - US S&P
+      - US SP500
+      - US Standard and Poors
+      - US S and P
+      - US Standard and Poor's
+      - US S&P 500
+      - US Standard and Poors 500
+      - US S and P 500
+      - US Standard and Poor's 500
+      - US Stock Market Index
+      - US S&P Index
+      - US SP500 Index
+      - US Standard and Poors Index
+      - US S and P Index
+      - US Standard and Poor's Index
+      - US S&P500 Index
+      - US S&P500 Market Index
+      - US Standard and Poors 500 Index
+      - US S and P 500 Index
+      - US Standard and Poor's 500 Index
+      - US S&P500 Stocks Index
+      - US S&P500 Stocks Market
+      - US S&P500 US
+      - US S&P US
+      - US SP500 US
+      - US US S&P
+      - US US SP500
+      - US US Standard and Poors
+      - US US S and P
+      - US US Standard and Poor's
+      - US US S&P 500
+      - US US Standard and Poors 500
+      - US US S and P 500
+      - US US Standard and Poor's 500
+      - US US Stock Market Index
+      - US US S&P Index
+      - US US SP500 Index
+      - US US Standard and Poors Index
+      - US US S and P Index
+      - US US Standard and Poor's Index
+      - US US S&P500 Index
+      - US US S&P500 Market Index
+      - US US Standard and Poors 500 Index
+      - US US S and P 500 Index
+      - US US Standard and Poor's 500 Index
+      - US US S&P500 Stocks Index
+      - US US S&P500 Stocks Market
+      - US US S&P500 US
+      - US US S&P US
+      - US US SP500 US
+      - US US US S&P
+      - US US US SP500
+      - US US US Standard and Poors
+      - US US US S and P
+      - US US US Standard and Poor's
+      - US US US S&P 500
+      - US US US Standard and Poors 500
+      - US US US S and P 500
+      - US US US Standard and Poor's 500
+      - US US US Stock Market Index
+      - US US US S&P Index
+      - US US US SP500 Index
+      - US US US Standard and Poors Index
+      - US US US S and P Index
+      - US US US Standard and Poor's Index
+      - US US US S&P500 Index
+      - US US US S&P500 Market Index
+      - US US US Standard and Poors 500 Index
+      - US US US S and P 500 Index
+      - US US US Standard and Poor's 500 Index
+      - US US US S&P500 Stocks Index
+      - US US US S&P500 Stocks Market
+      - US US US S&P500 US
+      - US US US S&P US
+      - US US US SP500 US
+      - US US US US S&P
+      - US US US US SP500
+      - US US US US Standard and Poors
+      - US US US US S and P
+      - US US US US Standard and Poor's
+      - US US US US S&P 500
+      - US US US US Standard and Poors 500
+      - US US US US S and P 500
+      - US US US US Standard and Poor's 500
+      - US US US US Stock Market Index
+      - US US US US S&P Index
+      - US US US US SP500 Index
+      - US US US US Standard and Poors Index
+      - US US US US S and P Index
+      - US US US US Standard and Poor's Index
+      - US US US US S&P500 Index
+      - US US US US S&P500 Market Index
+      - US US US US Standard and Poors 500 Index
+      - US US US US S and P 500 Index
+      - US US US US Standard and Poor's 500 Index
+      - US US US US S&P500 Stocks Index
+      - US US US US S&P500 Stocks Market
+      - US US US US S&P500 US
+      - US US US US S&P US
+      - US US US US SP500 US
+      - US US US US US S&P
+      - US US US US US SP500
+      - US US US US US Standard and Poors
+      - US US US US US S and P
+      - US US US US US Standard and Poor's
+      - US US US US US S&P 500
+      - US US US US US Standard and Poors 500
+      - US US US US US S and P 500
+      - US US US US US Standard and Poor's 500
+      - US US US US US Stock Market Index
+      - US US US US US S&P Index
+      - US US US US US SP500 Index
+      - US US US US US Standard and Poors Index
+      - US US US US US S and P Index
+      - US US US US US Standard and Poor's Index
+      - US US US US US S&P500 Index
+      - US US US US US S&P500 Market Index
+      - US US US US US Standard and Poors 500 Index
+      - US US US US US S and P 500 Index
+      - US US US US US Standard and Poor's 500 Index
+      - US US US US US S&P500 Stocks Index
+      - US US US US US S&P500 Stocks Market
+      - US US US US US S&P500 US
+      - US US US US US S&P US
+      - US US US US US SP500 US
+      - US US US US US US S&P
+      - US US US US US US SP500
+      - US US US US US US Standard and Poors
+      - US US US US US US S and P
+      - US US US US US US Standard and Poor's
+      - US US US US US US S&P 500
+      - US US US US US US Standard and Poors 500
+      - US US US US US US S and P 500
+      - US US US US US US Standard and Poor's 500
+      - US US US US US US Stock Market Index
+      - US US US US US US S&P Index
+      - US US US US US US SP500 Index
+      - US US US US US US Standard and Poors Index
+      - US US US US US US S and P Index
+      - US US US US US US Standard and Poor's Index
+      - US US US US US US S&P500 Index
+      - US US US US US US S&P500 Market Index
+      - US US US US US US Standard and Poors 500 Index
+      - US US US US US US S and P 500 Index
+      - US US US US US US Standard and Poor's 500 Index
+      - US US US US US US S&P500 Stocks Index
+      - US US US US US US S&P500 Stocks Market
+      - US US US US US US S&P500 US
+      - US US US US US US S&P US
+      - US US US US US US SP500 US
+      - US US US US US US US S&P
+      - US US US US US US US SP500
+      - US US US US US US US Standard and Poors
+      - US US US US US US US S and P
+      - US US US US US US US Standard and Poor's
+      - US US US US US US US S&P 500
+      - US US US US US US US Standard and Poors 500
+      - US US US US US US US S and P 500
+      - US US US US US US US Standard and Poor's 500
+      - US US US US US US US Stock Market Index
+      - US US US US US US US S&P Index
+      - US US US US US US US SP500 Index
+      - US US US US US US US Standard and Poors Index
+      - US US US US US US US S and P Index
+      - US US US US US US US Standard and Poor's Index
+      - US US US US US US US S&P500 Index
+      - US US US US US US US S&P500 Market Index
+      - US US US US US US US Standard and Poors 500 Index
+      - US US US US US US US S and P 500 Index
+      - US US US US US US US Standard and Poor's 500 Index
+      - US US US US US US US S&P500 Stocks Index
+      - US US US US US US US S&P500 Stocks Market
+      - US US US US US US US S&P500 US
+      - US US US US US US US S&P US
+      - US US US US US US US SP500 US
+      - US US US US US US US US S&P
+      - US US US US US US US US SP500
+      - US US US US US US US US Standard and Poors
+      - US US US US US US US US S and P
+      - US US US US US US US US Standard and Poor's
+      - US US US US US US US US S&P 500
+      - US US US US US US US US Standard and Poors 500
+      - US US US US US US US US S and P 500
+      - US US US US US US US US Standard and Poor's 500
+      - US US US US US US US US Stock Market Index
+      - US US US US US US US US S&P Index
+      - US US US US US US US US SP500 Index
+      - US US US US US US US US Standard and Poors Index
+      - US US US US US US US US S and P Index
+      - US US US US US US US US Standard and Poor's Index
+      - US US US US US US US US S&P500 Index
+      - US US US US US US US US S&P500 Market Index
+      - US US US US US US US US Standard and Poors 500 Index
+      - US US US US US US US US S and P 500 Index
+      - US US US US US US US US Standard and Poor's 500 Index
+      - US US US US US US US US S&P500 Stocks Index
+      - US US US US US US US US S&P500 Stocks Market
+      - US US US US US US US US S&P500 US
+      - US US US US US US US US S&P US
+      - US US US US US US US US SP500 US
+      - US US US US US US US US US S&P
+      - US US US US US US US US US SP500
+      - US US US US US US US US US Standard and Poors
+      - US US US US US US US US US S and P
+      - US US US US US US US US US Standard and Poor's
+      - US US US US US US US US US S&P 500
+      - US US US US US US US US US Standard and Poors 500
+      - US US US US US US US US US S and P 500
+      - US US US US US US US US US Standard and Poor's 500
+      - US US US US US US US US US Stock Market Index
+      - US US US US US US US US US S&P Index
+      - US US US US US US US US US SP500 Index
+      - US US US US US US US US US Standard and Poors Index
+      - US US US US US US US US US S and P Index
+      - US US US US US US US US US Standard and Poor's Index
+      - US US US US US US US US US S&P500 Index
+      - US US US US US US US US US S&P500 Market Index
+      - US US US US US US US US US Standard and Poors 500 Index
+      - US US US US US US US US US S and P 500 Index
+      - US US US US US US US US US Standard and Poor's 500 Index
+      - US US US US US US US US US S&P500 Stocks Index
+      - US US US US US US US US US S&P500 Stocks Market
+      - US US US US US US US US US S&P500 US
+      - US US US US US US US US US S&P US
+      - US US US US US US US US US SP500 US
+      - US US US US US US US US US US S&P
+      - US US US US US US US US US US SP500
+      - US US US US US US US US US US Standard and Poors
+      - US US US US US US US US US US S and P
+      - US US US US US US US US US US Standard and Poor's
+      - US US US US US US US US US US S&P 500
+      - US US US US US US US US US US Standard and Poors 500
+      - US US US US US US US US US US S and P 500
+      - US US US US US US US US US US Standard and Poor's 500
+      - US US US US US US US US US US Stock Market Index
+      - US US US US US US US US US US S&P Index
+      - US US US US US US US US US US SP500 Index
+      - US US US US US US US US US US Standard and Poors Index
+      - US US US US US US US US US US S and P Index
+      - US US US US US US US US US US Standard and Poor's Index
+      - US US US US US US US US US US S&P500 Index
+      - US US US US US US US US US US S&P500 Market Index
+      - US US US US US US US US US US Standard and Poors 500 Index
+      - US US US US US US US US US US S and P 500 Index
+      - US US US US US US US US US US Standard and Poor's 500 Index
+      - US US US US US US US US US US S&P500 Stocks Index
+      - US US US US US US US US US US S&P500 Stocks Market
+      - US US US US US US US US US US S&P500 US
+      - US US US US US US US US US US S&P US
+      - US US US US US US US US US US SP500 US
+      - US US US US US US US US US US US S&P
+      - US US US US US US US US US US US SP500
+      - US US US US US US US US US US US Standard and Poors
+      - US US US US US US US US US US US S and P
+      - US US US US US US US US US US US Standard and Poor's
+      - US US US US US US US US US US US S&P 500
+      - US US US US US US US US US US US Standard and Poors 500
+      - US US US US US US US US US US US S and P 500
+      - US US US US US US US US US US US Standard and Poor's 500
+      - US US US US US US US US US US US Stock Market Index
+      - US US US US US US US US US US US S&P Index
+      - US US US US US US US US US US US SP500 Index
+      - US US US US US US US US US US US Standard and Poors Index
+      - US US US US US US US US US US US S and P Index
+      - US US US US US US US US US US US Standard and Poor's Index
+      - US US US US US US US US US US US S&P500 Index
+      - US US US US US US US US US US US S&P500 Market Index
+      - US US US US US US US US US US US Standard and Poors 500 Index
+      - US US US US US US US US US US US S and P 500 Index
+      - US US US US US US US US US US US Standard and Poor's 500 Index
+      - US US US US US US US US US US US S&P500 Stocks Index
+      - US US US US US US US US US US US S&P500 Stocks Market
+      - US US US US US US US US US US US S&P500 US
+      - US US US US US US US US US US US S&P US
+      - US US US US US US US US US US US US SP500 US
+      - US US US US US US US US US US US US S&P
+      - US US US US US US US US US US US US US SP500
+      - US US US US US US US US US US US US US Standard and Poors
+      - US US US US US US US US US US US US US S and P
+      - US US US US US US US US US US US US US Standard and Poor's
+      - US US US US US US US US US US US US US S&P 500
+      - US US US US US US US US US US US US US Standard and Poors 500
+      - US US US US US US US US US US US US US S and P 500
+      - US US US US US US US US US US US US US Standard and Poor's 500
+      - US US US US US US US US US US US US US Stock Market Index
+      - US US US US US US US US US US US US US S&P Index
+      - US US US US US US US US US US US US US SP500 Index
+      - US US US US US US US US US US US US US Standard and Poors Index
+      - US US US US US US US US US US US US US S and P Index
+      - US US US US US US US US US US US US US Standard and Poor's Index
+      - US US US US US US US US US US US US US S&P500 Index
+      - US US US US US US US US US US US US US S&P500 Market Index
+      - US US US US US US US US US US US US US Standard and Poors 500 Index
+      - US US US US US US US US US US US US US S and P 500 Index
+      - US US US US US US US US US US US US US Standard and Poor's 500 Index
+      - US US US US US US US US US US US US US S&P500 Stocks Index
+      - US US US US US US US US US US US US US S&P500 Stocks Market
+      - US US US US US US US US US US US US US S&P500 US
+      - US US US US US US US US US US US US US S&P US
+      - US US US US US US US US US US US US US US SP500 US
+      - US US US US US US US US US US US US US US S&P
+      - US US US US US US US US US US US US US US US SP500
+      - US US US US US US US US US US US US US US US Standard and Poors
+      - US US US US US US US US US US US US US US US S and P
+      - US US US US US US US US US US US US US US US Standard and Poor's
+      - US US US US US US US US US US US US US US US S&P 500
+      - US US US US US US US US US US US US US US US Standard and Poors 500
+      - US US US US US US US US US US US US US US US S and P 500
+      - US US US US US US US US US US US US US US US Standard and Poor's 500
+      - US US US US US US US US US US US US US US US Stock Market Index
+      - US US US US US US US US US US US US US US US S&P Index
+      - US US US US US US US US US US US US US US US SP500 Index
+      - US US US US US US US US US US US US US US US Standard and Poors Index
+      - US US US US US US US US US US US US US US US S and P Index
+      - US US US US US US US US US US US US US US US Standard and Poor's Index
+      - US US US US US US US US US US US US US US US S&P500 Index
+      - US US US US US US US US US US US US US US US S&P500 Market Index
+      - US US US US US US US US US US US US US US US Standard and Poor's 500 Index
+      - US US US US US US US US US US US US US US US
+    primary_key:
+      columns:
+        - TICKER
+    metrics:
+      - expr: AVG(0.5*LOW_52_WEEKS+0.5*HIGH_52_WEEKS)
+        name: Mid_Price_Value
+        synonyms:
+          - average_price
+          - mid_point_price
+          - median_price_value
+          - middle_price
+          - price_average
+        description: The midpoint price of the stock at the time of the snapshot, calculated as the average of the bid and ask prices.
+    filters:
+      - expr: DIVIDEND_YIELD >= 100
+        name: Yield_ge_100
+        synonyms:
+          - Yield_greater_than_100
+          - Yield_over_100
+          - Yield_exceeding_100
+          - Yield_above_100
+          - Yield_higher_than_100
+        description: The percentage of stocks in the S&P 500 index that have a dividend yield greater than or equal to 100.
+  - name: SP_500_VISITS
+    base_table:
+      database: FWDDEMO
+      schema: PUBLIC
+      table: SP_500_VISITS
+    dimensions:
+      - name: TICKER
+        expr: TICKER
+        data_type: VARCHAR(16777216)
+        description: The stock ticker symbol of the S&P 500 company.
+        sample_values:
+          - CDNS
+          - CTSH
+          - MAS
+        synonyms:
+          - stock_symbol
+          - company_code
+          - security_id
+          - exchange_symbol
+          - stock_code
+      - name: DOMAIN
+        expr: DOMAIN
+        data_type: VARCHAR(16777216)
+        description: The domain of the website visited by a user.
+        sample_values:
+          - opel.bg
+          - allstate.com
+          - otis.com
+        synonyms:
+          - industry
+          - sector
+          - category
+          - field
+          - area
+          - sphere
+          - market
+          - niche
+      - name: COUNTRY
+        expr: COUNTRY
+        data_type: VARCHAR(16777216)
+        description: The country or region where the S&P 500 company is headquartered or primarily operates.
+        sample_values:
+          - Worldwide
+        synonyms:
+          - nation
+          - land
+          - territory
+          - state
+          - region
+          - geographical_area
+          - location
+          - nationality
+          - homeland
+    time_dimensions:
+      - name: DATE
+        expr: DATE
+        data_type: DATE
+        description: Date of visit to the S&P 500 company's website.
+        sample_values:
+          - '2020-04-07'
+          - '2019-11-10'
+          - '2020-05-21'
+        synonyms:
+          - day
+          - calendar_date
+          - timestamp
+          - datestamp
+          - calendar_day
+          - entry_date
+    facts:
+      - name: DESKTOP_VISITS
+        expr: DESKTOP_VISITS
+        data_type: FLOAT
+        description: The number of visits to the S&P 500 company's website from desktop devices.
+        sample_values:
+          - '129'
+          - '156'
+          - '170'
+        synonyms:
+          - desktop_traffic
+          - computer_visits
+          - pc_visits
+          - laptop_visits
+          - non_mobile_visits
+          - desktop_views
+        default_aggregation: 1
+      - name: DESKTOP_BOUNCE_RATE
+        expr: DESKTOP_BOUNCE_RATE
+        data_type: FLOAT
+        description: The percentage of website visitors who only viewed one page before leaving the site, indicating a lack of engagement or relevance.
+        sample_values:
+          - '0.0866'
+          - '0.6104'
+          - '0.1191'
+        synonyms:
+          - desktop_exit_rate
+          - desktop_abandonment_rate
+          - desktop_drop_off_rate
+          - desktop_immediate_exit_rate
+          - desktop_single_page_visit_rate
+      - name: DESKTOP_AVG_VISIT_DURATION
+        expr: DESKTOP_AVG_VISIT_DURATION
+        data_type: FLOAT
+        description: The average amount of time (in seconds) that a user spends on the S&P 500 website from a desktop device.
+        sample_values:
+          - '122.3511'
+          - '989.4473'
+          - '281.8818'
+        synonyms:
+          - avg_desktop_visit_length
+          - desktop_visit_duration_avg
+          - average_desktop_session_time
+          - desktop_time_spent_avg
+          - avg_desktop_session_duration
+        default_aggregation: 2
+      - name: DESKTOP_PAGES_PER_VISIT
+        expr: DESKTOP_PAGES_PER_VISIT
+        data_type: FLOAT
+        description: The average number of pages viewed on the desktop site per visit.
+        sample_values:
+          - '3.34'
+          - '3.1'
+          - '3.25'
+        synonyms:
+          - avg_desktop_pages_viewed
+          - desktop_page_views
+          - desktop_pages_visited
+          - avg_desktop_page_views
+          - desktop_pages_per_session
+      - name: MOBILE_VISITS
+        expr: MOBILE_VISITS
+        data_type: FLOAT
+        description: The number of visits to the S&P 500 company's website from mobile devices.
+        sample_values:
+          - '31'
+          - '67'
+          - '26288'
+        synonyms:
+          - mobile_traffic
+          - mobile_views
+          - handheld_visits
+          - smartphone_visits
+          - cell_phone_visits
+          - portable_device_visits
+        default_aggregation: 1
+      - name: MOBILE_BOUNCE_RATE
+        expr: MOBILE_BOUNCE_RATE
+        data_type: FLOAT
+        description: The percentage of mobile website visitors who leave the site immediately after visiting a single page, indicating a lack of engagement or relevance.
+        sample_values:
+          - '0.6099'
+          - '0.6084'
+          - '0.7142'
+        synonyms:
+          - mobile_bounce_percentage
+          - mobile_rejection_rate
+          - mobile_abandonment_rate
+          - mobile_drop_off_rate
+          - mobile_exit_rate
+        default_aggregation: 2
+      - name: MOBILE_AVG_VISIT_DURATION
+        expr: MOBILE_AVG_VISIT_DURATION
+        data_type: FLOAT
+        description: The average amount of time, in seconds, that a user spends on the website when accessing it through a mobile device.
+        sample_values:
+          - '61.4464'
+          - '508.4895'
+          - '504.6977'
+        synonyms:
+          - mobile_avg_session_length
+          - mobile_avg_time_spent
+          - mobile_average_visit_time
+          - mobile_duration_per_visit
+          - mobile_session_duration
+          - mobile_time_per_visit
+          - mobile_visit_length
+      - name: MOBILE_PAGES_PER_VISIT
+        expr: MOBILE_PAGES_PER_VISIT
+        data_type: FLOAT
+        description: The average number of mobile pages viewed by a visitor during a single session on the S&P 500 company's website.
+        sample_values:
+          - '1.04'
+          - '1.25'
+          - '2.33'
+        synonyms:
+          - mobile_pages_per_session
+          - mobile_pages_viewed_per_visit
+          - mobile_visit_pages
+          - average_mobile_pages_per_visit
+          - mobile_pages_per_user_session
+      - name: TOTAL_VISITS
+        expr: TOTAL_VISITS
+        data_type: FLOAT
+        description: The total number of visits to the S&P 500 company's website or online platform, representing the overall traffic and engagement with the company's digital presence.
+        sample_values:
+          - '749449.045'
+          - '40119.8953'
+          - '710191.3706'
+        synonyms:
+          - total_site_visits
+          - overall_visits
+          - total_traffic
+          - all_visits
+          - combined_visits
+          - total_page_views
+          - total_user_visits
+        default_aggregation: 1
+      - name: TOTAL_BOUNCE_RATE
+        expr: TOTAL_BOUNCE_RATE
+        data_type: FLOAT
+        description: The percentage of website visitors who leave the site immediately after viewing only one page, indicating a lack of engagement or relevance.
+        sample_values:
+          - '0.5194'
+          - '0.3578'
+          - '0.5456'
+        synonyms:
+          - total_bounce_percentage
+          - overall_bounce_rate
+          - total_bounced_visits_percentage
+          - all_visits_bounce_rate
+          - combined_bounce_rate
+      - name: TOTAL_AVG_VISIT_DURATION
+        expr: TOTAL_AVG_VISIT_DURATION
+        data_type: FLOAT
+        description: The average amount of time, in seconds, that a visitor spends on the S&P 500 company's website.
+        sample_values:
+          - '149.5726'
+          - '315.4912'
+          - '263.0116'
+        synonyms:
+          - average_total_visit_length
+          - total_average_session_duration
+          - overall_average_visit_time
+          - total_mean_visit_duration
+          - average_total_time_spent
+      - name: TOTAL_PAGES_PER_VISIT
+        expr: TOTAL_PAGES_PER_VISIT
+        data_type: FLOAT
+        description: The average number of pages viewed by a visitor during a single session on the S&P 500 company's website.
+        sample_values:
+          - '2.93'
+          - '26.45'
+          - '12.83'
+        synonyms:
+          - total_site_pages_viewed
+          - total_pages_browsed
+          - average_pages_per_session
+          - total_pages_visited
+          - overall_pages_per_visit
+    description: This table provides a comprehensive view of website traffic metrics for companies in the S&P 500 index, including the number of visits, bounce rates, average visit duration, and pages per visit, broken down by desktop and mobile devices, as well as total traffic metrics, for each company's website domain, by date and country.
+    synonyms:
+      - SP 500 Visits
+      - S&P 500 Visits
+      - Stock Market Visits
+      - Company Visits
+      - Domain Visits
+      - Website Visits
+      - Stock Exchange Visits
+      - Financial Visits
+      - Market Data Visits
+      - Stock Market Data
+      - S&P 500 Data
+      - Company Performance
+      - Stock Performance
+      - Market Performance
+      - Financial Performance
+      - Website Performance
+      - Domain Performance
+    primary_key:
+      columns:
+        - TICKER
+    metrics:
+      - expr: SUM(TOTAL_VISITS)/SUM(EBITDA)
+        name: VISITS_PER_EBITDA
+        synonyms:
+          - ebitda_visits_ratio
+          - visits_to_ebitda
+          - ebitda_per_visit
+          - visit_ebitda_proportion
+          - ebitda_visit_percentage
+        description: The number of times the stock was visited or viewed by investors and analysts per dollar of earnings before interest, taxes, depreciation, and amortization (EBITDA), indicating the level of interest and attention the stock is receiving relative to its profitability.
+  - name: SP_500_ARTICLES
+    base_table:
+      database: FWDDEMO
+      schema: PUBLIC
+      table: SP_500_ARTICLES
+    dimensions:
+      - name: SOURCE
+        expr: SOURCE
+        data_type: VARCHAR(16777216)
+        description: The source of the article, representing the publication or website where the article was originally published.
+        sample_values:
+          - The Verge
+          - Gizmodo.com
+          - Wired
+        synonyms:
+          - origin
+          - provider
+          - supplier
+          - publisher
+          - author
+          - creator
+          - contributor
+          - reference
+      - name: ARTICLE_TITLE
+        expr: ARTICLE_TITLE
+        data_type: VARCHAR(16777216)
+        description: The title of news articles related to the S&P 500, providing context on market-moving events and trends.
+        sample_values:
+          - Apple has its biggest stock drop in five years because of Trump’s tariffs
+          - Stocks Plunge After Trump Declares Web Rumor on Tariffs ‘Fake News’
+          - 'Star Wars, Harry Potter: Amazon Clears Stock Of Popular Lego Sets Up To 40% Off'
+        synonyms:
+          - headline
+          - title
+          - article_heading
+          - article_name
+          - article_label
+          - news_title
+          - story_title
+          - content_title
+      - name: ARTICLE_SUMMARY
+        expr: ARTICLE_SUMMARY
+        data_type: VARCHAR(16777216)
+        description: A brief summary or description of a news article related to the S&P 500, typically discussing market trends, stock performance, and economic events.
+        sample_values:
+          - Shares of Apple, Amazon, and other tech stocks are getting walloped on Thursday as the markets digest the impact of President Donald Trump’s new round of tariffs announced on Wednesday evening. Shares of Apple were down about 9 percent on Thursday morning, wh…
+          - Shares of Apple, Amazon and other tech stocks are getting walloped on Thursday as the markets digest the impact of Trump’s new round of tariffs announced on Wednesday evening. Shares of Apple were down about 9 percent on Thursday morning, which would mark the…
+          - The stock market had a brief moment of hope on Monday morning thanks to a false rumor.
+        synonyms:
+          - article_description
+          - article_blurb
+          - article_teaser
+          - article_preview
+          - article_excerpt
+          - summary_text
+          - article_synopsis
+      - name: ARTICLE_URL
+        expr: ARTICLE_URL
+        data_type: VARCHAR(16777216)
+        description: The URL of the news article related to the S&P 500 company.
+        sample_values:
+          - https://www.theverge.com/news/642598/apple-stock-trump-tariffs
+          - https://www.theverge.com/news/642598/apple-amazon-microsoft-and-other-tech-stocks-are-getting-walloped-by-trumps-tariffs
+          - https://www.wired.com/story/even-more-venmo-accounts-tied-to-trump-officials-in-signal-group-chat-left-data-public/
+        synonyms:
+          - link
+          - article_link
+          - url_address
+          - web_address
+          - hyperlink
+          - article_hyperlink
+          - webpage_url
+      - name: ARTICLE_CONTENT
+        expr: ARTICLE_CONTENT
+        data_type: VARCHAR(16777216)
+        description: The column appears to be a business news article discussing the impact of President Donald Trump's tariff policies on the stock market, specifically the shares of tech companies such as Apple, Amazon, and Nvidia, and how a false report of a potential 90-day tariff pause caused a brief surge and subsequent drop in the market.
+        sample_values:
+          - |-
+            is a deputy editor with 18 years of experience writing and editing product reviews, gadgets and business news. Previously, he was a deputy editor covering technology companies at CNBC.
+
+            Shares of Apple, Amazon, and other tech stocks are getting walloped on Thursday as the markets digest the impact of President Donald Trump’s new round of tariffs announced on Wednesday evening.
+
+            Shares of Apple were down about 9 percent on Thursday morning, which would mark the biggest drop in about five years if it holds until the close, according to CNBC. Amazon shares dropped about 7 percent.
+
+            Both companies rely heavily on imports from other countries, like China, on which Trump plans to impose a 54 percent tariff beginning April 9th. Apple also manufactures some products in countries like Vietnam, on which a 46 percent tariff was announced.
+
+            The tariffs, if they aren’t walked back, could mean increased prices on electronics for consumers or slimmer margins for companies like Apple and Amazon if they choose to eat some of the costs. Apple has typically had a gross margin, the amount of cash it gets to keep after it sells stuff, of around 38 percent, though it has been higher. Wall Street is likely concerned about lower demand if Apple has to increase the price of Macs, iPhones, iPads, and other products.
+
+            Other big tech companies were impacted as well. Shares of Nvidia were down more than 4 percent on Thursday morning while Tesla stock was also down about 4 percent, giving up most of its Wednesday gains. Shares of Meta are down about 7 percent.
+          - |-
+            The stock market went on a rollercoaster ride this morning, shooting upwards after news circulated online that President Donald Trump was considering a 90-day pause of his global tariff policy. However, the White House has now called the information “fake news.” After it became apparent that Trump has no intention of backing down from a policy most economists have dubbed totally insane, the market acted accordingly and dropped like a stone.
+
+            It’s unclear exactly where the news originated, although online chatter and multiple news outlets have pointed to it having been boosted by one particular X account. Business Insider writes that the tweet came from an account known as “Walter Bloomberg” which typically posts headlines and information from news outlets. According to BI, that tweet read: “HASSETT: TRUMP IS CONSIDERING A 90-DAY PAUSE IN TARIFFS FOR ALL COUNTRIES EXCEPT CHINA,” in an apparent reference to Kevin Hassett, director of the National Economic Council, who recently went on Fox News to discuss Trump’s tariff policy. The tweet has since been deleted. Gizmodo reached out to the account via email for comment.
+
+            However, around the same time, the news was also briefly perpetuated by multiple reputable outlets, including Reuters. An archived version of the Reuters report claims that “White House economic adviser Kevin Hassett said in an interview that President Donald Trump was considering a 90-day tariff pause on all countries expect China.” Indeed, the Walter Bloomberg account has claimed that he first heard the news from Reuters.
+
+            When reached for comment by Gizmodo, Reuters said that it had initially heard the news from a television report from CNBC. A spokesperson said, in a statement: “Reuters, drawing from a headline on CNBC, published a story on April 7 saying White House economic adviser Kevin Hassett had said that President Donald Trump was considering a 90-day tariff pause on all countries except China. The White House denied the report. Reuters has withdrawn the incorrect report and regrets its error.”
+
+            With the apparent news that Trump might roll back his daft economic policy, the market rose precipitously—shooting up 8.5 percent in 34 minutes, BI writes.
+
+            However, the White House was quick to shoot down the media reports. Rapid Response 47, which is the Trump administration’s social media account on X, quote-tweeted the news, writing: “Wrong. Fake News.” The market promptly plummeted.
+
+            Later Monday morning, a Bloomberg business reporter came out to disavow any link between the news outlet and the “Walter Bloomberg” social media account: “PSA: Do not rely on Walter Bloomberg X account. He doesn’t work for us and is not authorized by Bloomberg.”
+
+            Barron’s writes that the tweet may have been a misunderstanding of Hassett’s Monday morning interview with Fox. During that interview, Hassett was asked whether Trump would consider pausing his tariffs and Hassett responded that “the president is going to decide what the president is going to decide,” whatever that’s supposed to mean.
+
+            “INSANE market action right now,” wrote Joe Weisenthal, who runs Bloomberg’s Odd Lots podcast. “Market exploded higher on a headline attributed to Kevin Hassett. And now nobody can figure out where it came from and the markets are diving again. An 8% surge and then a 3.5% plunge in a matter of seconds.”
+
+            Other web-users chimed in to comment on the ridiculousness of the situation. “s&p is now a memecoin,” one X user wrote.
+
+            “You know The Economy is real when trillions of dollars can move up and down based on a tweet of a made-up quote,” said another user.
+
+            Another user noted that the account being blamed for the mistake is “verified” by X’s standards, meaning the person operating the account pays a monthly subscription fee in exchange for “verification.” Twitter verification used to be reserved largely for professional media organizations and was determined by an internal team. Since Elon Musk took over the platform, anybody can be an expert, as long as they pay Musk’s company money. “Twitter letting random users pay $8 a month for a verified badge just led to a $4 trillion market mistake caused by fake news,” someone wrote.
+
+            Trump’s tariff policies have sent the global economy into a tailspin, with critics maintaining that the world is headed for recession. The president has sought to alleviate concerns about evaporating 401ks by coining a new, deeply idiotic term: Panican, as in an American who panics. “The United States has a chance to do something that should have been done DECADES AGO,” Trump said, in a post to his website, Truth Social, on Monday. “Don’t be Weak! Don’t be Stupid! Don’t be a PANICAN (A new party based on Weak and Stupid people!). Be Strong, Courageous, and Patient, and GREATNESS will be the result!”
+        synonyms:
+          - article_text
+          - article_body
+          - content
+          - article_details
+          - article_story
+          - article_words
+          - article_narrative
+      - name: TICKER
+        expr: TICKER
+        data_type: VARCHAR(16777216)
+        description: Stock ticker symbol of the S&P 500 company.
+        sample_values:
+          - NVDA
+          - AMZN
+          - VZ
+        synonyms:
+          - stock_symbol
+          - ticker
+          - stock_ticker
+          - company_symbol
+          - stock_code
+          - ticker_symbol
+      - name: SENTIMENT
+        expr: SENTIMENT
+        data_type: VARCHAR(16777216)
+        description: The sentiment of the article, indicating whether the overall tone is Positive, Negative, or Neutral.
+        sample_values:
+          - Positive
+          - Negative
+          - Neutral
+        synonyms:
+          - opinion
+          - attitude
+          - emotion
+          - tone
+          - mood
+          - outlook
+          - perspective
+          - viewpoint
+          - emotional_state
+          - emotional_tone
+    time_dimensions:
+      - name: PUBLISH_DATE
+        expr: PUBLISH_DATE
+        data_type: DATE
+        description: Date the article was published.
+        sample_values:
+          - '2025-04-03'
+          - '2025-04-07'
+          - '2025-04-01'
+        synonyms:
+          - publication_date
+          - release_date
+          - posting_date
+          - article_date
+          - published_on
+          - date_published
+    description: This view provides a curated collection of news articles related to S&P 500 companies, aggregating key information such as article title, summary, URL, publication date, and content, alongside the corresponding company symbol, enabling users to track market news and trends for specific companies within the S&P 500 index.
+    synonyms:
+      - SP500 Articles
+      - S&P 500 News
+      - Stock Market Updates
+      - Financial News
+      - Business Articles
+      - Stock Updates
+      - Market News
+      - S&P 500 Updates
+      - Financial Updates
+      - Stock Market News
+      - Business News
+      - Market Updates
+      - Financial Articles
+      - S&P 500 Articles
+      - Stock News
+      - Business Updates
+      - Market Articles
+      - Financial Market News
+      - Stock Market Articles
+      - S&P 500 Financial News
+      - Financial Market Updates
+      - Business Market News
+      - Stock Market Financial News
+      - S&P 500 Business News
+      - Financial Stock News
+      - Market Financial Updates
+      - Business Financial News
+      - S&P 500 Market News
+      - Financial Business News
+      - Stock Financial Updates
+      - Market Business Updates
+      - S&P 500 Financial Updates
+      - Financial Stock Updates
+      - Business Stock News
+      - Market Financial News
+      - S&P 500 Stock News
+      - Financial Market Articles
+      - Business Financial Updates
+      - Stock Market Business News
+      - S&P 500 Market Updates
+      - Financial Stock Articles
+      - Business Market Updates
+      - S&P 500 Financial Articles
+      - Financial Business Updates
+      - Market Stock News
+      - S&P 500 Business Updates
+      - Financial Market News Articles
+      - Stock Market Financial Articles
+      - S&P 500 Financial Market News
+      - Financial Stock Market News
+      - Business Financial Market News
+      - S&P 500 Stock Market News
+      - Financial Business Market News
+      - Market Financial Market News
+      - S&P 500 Financial Stock News
+      - Financial Market Stock News
+      - Business Financial Stock News
+      - S&P 500 Market Financial News
+      - Financial Stock Market Updates
+      - Business Stock Market Updates
+      - S&P 500 Financial Market Updates
+      - Financial Market Business News
+      - Stock Market Financial Market News
+      - S&P 500 Stock Market Business News
+      - Financial Business Market Updates
+      - Market Financial Market Updates
+      - S&P 500 Financial Stock Market News
+      - Financial Stock Market Business News
+      - Business Stock Market Financial News
+      - S&P 500 Market Stock News
+      - Financial Market Stock Market News
+      - Business Financial Stock Market News
+      - S&P 500 Financial Stock Market Updates
+      - Financial Stock Market Financial News
+      - Business Stock Market Financial Updates
+      - S&P 500 Market Financial Market News
+      - Financial Market Financial News
+      - Stock Market Financial Market Updates
+      - S&P 500 Stock Market Financial Updates
+      - Financial Market Stock Market Updates
+      - Business Financial Market Updates
+      - S&P 500 Financial Market Business News
+      - Financial Stock Market Business News
+      - Market Stock Market Financial News
+      - S&P 500 Stock Market Financial Market News
+      - Financial Market Stock Market Financial News
+      - Business Stock Market Market News
+      - S&P 500 Financial Stock Market Business News
+      - Financial Market Financial Market News
+      - Stock Market Financial Market Business News
+      - S&P 500 Market Stock Market Financial News
+      - Financial Stock Market Market News
+      - Business Financial Market Market News
+      - S&P 500 Financial Market Market News
+      - Financial Market Market News
+      - Stock Market Market News
+      - S&P 500 Stock Market Market News
+      - Financial Market Stock Market Market News
+      - Business Market Market News
+      - S&P 500 Financial Stock Market Market News
+      - Financial Stock Market Market Updates
+      - Business Stock Market Market Updates
+      - S&P 500 Market Stock Market Market News
+      - Financial Market Stock Market Market Updates
+      - Business Financial Market Market Updates
+      - S&P 500 Financial Market Market Updates
+      - Financial Market Market Updates
+      - Stock Market Market Updates
+      - S&P 500 Stock Market Market Updates
+      - Financial Stock Market Market Updates
+      - Business Market Market Updates
+      - S&P 500 Financial Stock Market Market Updates
+      - Financial Market Market Updates
+      - Market Market Updates
+      - S&P 500 Market Market Updates
+      - Financial Stock Market Market
+      - Business Stock Market Market
+      - S&P 500 Financial Stock Market Market
+      - Financial Market Stock Market
+      - Business Market Stock Market
+      - S&P 500 Market Stock Market
+      - Financial Stock Market
+      - Business Stock Market
+      - S&P 500 Financial Stock Market
+      - Financial Market
+      - Business Market
+      - S&P 500 Market
+      - Financial
+      - Business
+      - S&P 500
+      - Stock Market
+      - Articles
+      - News
+      - Updates
+      - Financial News
+      - Business News
+      - Market News
+      - Stock Updates
+      - Financial Updates
+      - Business Updates
+      - Market Updates
+      - Financial Articles
+      - Business Articles
+      - Stock Articles
+      - Market Articles
+      - Financial Market
+      - Business Market
+      - Stock Market
+      - S&P 500 Articles
+      - S&P 500 News
+      - S&P 500 Updates
+      - S&P 500 Financial News
+      - S&P 500 Business News
+      - S&P 500 Market News
+      - S&P 500 Financial Updates
+      - S&P 500 Business Updates
+      - S&P 500 Market Updates
+      - S&P 500 Financial Articles
+      - S&P 500 Business Articles
+      - S&P 500 Market Articles
+      - S&P 500 Financial Market
+      - S&P 500 Business Market
+      - S&P 500 Stock Market
+      - S&P 500 Financial
+      - S&P 500 Business
+      - S&P 500 Stock
+      - S&P 500 Articles
+      - S&P 500 News
+      - S&P 500 Updates
+      - S&P 500 Financial News
+      - S&P 500 Business News
+      - S&P 500 Market News
+      - S&P 500 Financial Updates
+      - S&P 500 Business Updates
+      - S&P 500 Market Updates
+      - S&P 500 Financial Articles
+      - S&P 500 Business Articles
+      - S&P 500 Market Articles
+      - S&P 500 Financial Market
+      - S&P 500 Business Market
+      - S&P 500 Stock Market
+      - S&P 500 Financial
+      - S&P 500 Business
+      - S&P 500 Stock
+      - S&P 500
+      - S&P500
+      - S and P 500
+      - S & P 500
+      - Standard and Poors 500
+      - Standard & Poors 500
+      - Standard and Poor's 500
+      - Standard & Poor's 500
+      - S and P
+      - S&P
+      - Standard and Poors
+      - Standard & Poors
+      - Standard and Poor's
+      - Standard & Poor's
+      - S&P 500 Index
+      - S&P500 Index
+      - S and P 500 Index
+      - S & P 500 Index
+      - Standard and Poors 500 Index
+      - Standard & Poors 500 Index
+      - Standard and Poor's 500 Index
+      - Standard & Poor's 500 Index
+      - S&P Index
+      - S&P500
+      - S and P Index
+      - S & P Index
+      - Standard and Poors Index
+      - Standard & Poors Index
+      - Standard and Poor's Index
+      - Standard & Poor's Index
+      - S&P500 Articles
+      - S&P 500 Articles
+      - S and P 500 Articles
+      - S & P 500 Articles
+      - Standard and Poors 500 Articles
+      - Standard & Poors 500 Articles
+      - Standard and Poor's 500 Articles
+      - Standard & Poor's 500 Articles
+      - S&P Articles
+      - S&P500 News
+      - S&P 500 News
+      - S and P 500 News
+      - S & P 500 News
+      - Standard and Poors 500 News
+      - Standard & Poors 500 News
+      - Standard and Poor's 500 News
+      - Standard & Poor's 500 News
+      - S&P News
+      - S&P500 Updates
+      - S&P 500 Updates
+      - S and P 500 Updates
+      - S & P 500 Updates
+      - Standard and Poors 500 Updates
+      - Standard & Poors 500 Updates
+      - Standard and Poor's 500 Updates
+      - Standard & Poor's 500 Updates
+      - S&P Updates
+      - S&P500 Financial News
+      - S&P 500 Financial News
+      - S and P 500 Financial News
+      - S & P 500 Financial News
+      - Standard and Poors 500 Financial News
+      - Standard & Poors 500 Financial News
+      - Standard and Poor's 500 Financial News
+      - Standard & Poor's 500 Financial News
+      - S&P Financial News
+      - S&P500 Business News
+      - S&P 500 Business News
+      - S and P 500 Business News
+      - S & P 500 Business News
+      - Standard and Poors 500 Business News
+      - Standard & Poors 500 Business News
+      - Standard and Poor's 500 Business News
+      - Standard & Poor's 500 Business News
+      - S&P Business News
+      - S&P500 Market News
+      - S&P 500 Market News
+      - S and P 500 Market News
+      - S & P 500 Market News
+      - Standard and Poors 500 Market News
+      - Standard & Poors 500 Market News
+      - Standard and Poor's 500 Market News
+      - Standard & Poor's 500 Market News
+      - S&P Market News
+      - S&P500 Financial Updates
+      - S&P 500 Financial Updates
+      - S and P 500 Financial Updates
+      - S & P 500 Financial Updates
+      - Standard and Poors 500 Financial Updates
+      - Standard & Poors 500 Financial Updates
+      - Standard and Poor's 500 Financial Updates
+      - Standard & Poor's 500 Financial Updates
+      - S&P Financial Updates
+      - S&P500 Business Updates
+      - S&P 500 Business Updates
+      - S and P 500 Business Updates
+      - S & P 500 Business Updates
+      - Standard and Poors 500 Business Updates
+      - Standard & Poors 500 Business Updates
+      - Standard and Poor's 500 Business Updates
+      - Standard & Poor's 500 Business Updates
+      - S&P Business Updates
+      - S&P500 Market Updates
+      - S&P 500 Market Updates
+      - S and P 500 Market Updates
+      - S & P 500 Market Updates
+      - Standard and Poors 500 Market Updates
+      - Standard & Poors 500 Market Updates
+      - Standard and Poor's 500 Market Updates
+      - Standard & Poor's 500 Market Updates
+      - S&P Market Updates
+      - S&P500 Financial Articles
+      - S&P 500 Financial Articles
+      - S and P 500 Financial Articles
+      - S & P 500 Financial Articles
+      - Standard and Poors 500 Financial Articles
+      - Standard & Poors 500 Financial Articles
+      - Standard and Poor's 500 Financial Articles
+      - Standard & Poor's 500 Financial Articles
+      - S&P Financial Articles
+      - S&P500 Business Articles
+      - S&P 500 Business Articles
+      - S and P 500 Business Articles
+      - S & P 500 Business Articles
+      - Standard and Poors 500 Business Articles
+      - Standard & Poors 500 Business Articles
+      - Standard and Poor's 500 Business Articles
+      - Standard & Poor's 500 Business Articles
+      - S&P Business Articles
+      - S&P500 Market Articles
+      - S&P 500 Market Articles
+      - S and P 500 Market Articles
+      - S & P 500 Market Articles
+      - Standard and Poors 500 Market Articles
+      - Standard & Poors 500 Market Articles
+      - Standard and Poor's 500 Market Articles
+      - Standard & Poor's 500 Market Articles
+      - S&P Market Articles
+      - S&P500 Financial Market
+      - S&P 500 Financial Market
+      - S and P 500 Financial Market
+      - S & P 500 Financial Market
+      - Standard and Poors 500 Financial Market
+      - Standard & Poors 500 Financial Market
+      - Standard and Poor's 500 Financial Market
+      - Standard & Poor's 500 Financial Market
+      - S&P Financial Market
+      - S&P500 Business Market
+      - S&P 500 Business Market
+      - S and P 500 Business Market
+      - S & P 500 Business Market
+      - Standard and Poors 500 Business Market
+      - Standard & Poors 500 Business Market
+      - Standard and Poor's 500 Business Market
+      - Standard & Poor's 500 Business Market
+      - S&P Business Market
+      - S&P500 Stock Market
+      - S&P 500 Stock Market
+      - S and P 500 Stock Market
+      - S & P 500 Stock Market
+      - Standard and Poors 500 Stock Market
+      - Standard & Poors 500 Stock Market
+      - Standard and Poor's 500 Stock Market
+      - Standard & Poor's 500 Stock Market
+      - S&P Stock Market
+      - S&P500 Financial
+      - S&P 500 Financial
+      - S and P 500 Financial
+      - S & P 500 Financial
+      - Standard and Poors 500 Financial
+      - Standard & Poors 500 Financial
+      - Standard and Poor's 500 Financial
+      - Standard & Poor's 500 Financial
+      - S&P Financial
+      - S&P500 Business
+      - S&P 500 Business
+      - S and P 500 Business
+      - S & P 500 Business
+      - Standard and Poors 500 Business
+      - Standard & Poors 500 Business
+      - Standard and Poor's 500 Business
+      - Standard & Poor's 500 Business
+      - S&P Business
+      - S&P500 Stock
+      - S&P 500 Stock
+      - S and P 500 Stock
+      - S & P 500 Stock
+      - Standard and Poors 500 Stock
+      - Standard & Poors 500 Stock
+      - Standard and Poor's 500 Stock
+      - Standard & Poor's 500 Stock
+      - S&P Stock
+      - S&P500
+      - S&P 500
+      - S and P 500
+      - S & P 500
+      - Standard and Poors 500
+      - Standard & Poors 500
+      - Standard and Poor's 500
+      - Standard & Poor's 500
+      - S&P
+      - S&P500 Index
+      - S&P 500 Index
+      - S and P 500 Index
+      - S & P 500 Index
+      - Standard and Poors 500 Index
+      - Standard & Poors 500 Index
+      - Standard and Poor's 500 Index
+      - Standard & Poor's 500 Index
+      - S&P Index
+      - S&P500 Articles
+      - S&P 500 Articles
+      - S and P 500 Articles
+      - S & P 500 Articles
+      - Standard and Poors 500 Articles
+      - Standard & Poors 500 Articles
+      - Standard and Poor's 500 Articles
+      - Standard & Poor's 500 Articles
+      - S&P Articles
+      - S&P500 News
+      - S&P 500 News
+      - S and P 500 News
+      - S & P 500 News
+      - Standard and Poors 500 News
+      - Standard & Poors 500 News
+      - Standard and Poor's 500 News
+      - Standard & Poor's 500 News
+      - S&P News
+      - S&P500 Updates
+      - S&P 500 Updates
+      - S and P 500 Updates
+      - S & P 500 Updates
+      - Standard and Poors 500 Updates
+      - Standard & Poors 500 Updates
+      - Standard and Poor's 500 Updates
+      - Standard & Poor's 500 Updates
+      - S&P Updates
+      - S&P500 Financial News
+      - S&P 500 Financial News
+      - S and P 500 Financial News
+      - S & P 500 Financial News
+      - Standard and Poors 500 Financial News
+      - Standard & Poors 500 Financial News
+      - Standard and Poor's 500 Financial News
+      - Standard & Poor's 500 Financial News
+      - S&P Financial News
+      - S&P500 Business News
+      - S&P 500 Business News
+      - S and P 500 Business News
+      - S & P 500 Business News
+      - Standard and Poors 500 Business News
+      - Standard & Poors 500 Business News
+      - Standard and Poor's 500 Business News
+      - Standard & Poor's 500 Business News
+      - S&P Business News
+      - S&P500 Market News
+      - S&P 500 Market News
+      - S and P 500 Market News
+      - S & P 500 Market News
+      - Standard and Poors 500 Market News
+      - Standard & Poors 500 Market News
+      - Standard and Poor's 500 Market News
+      - Standard & Poor's 500 Market News
+      - S&P Market News
+      - S&P500 Financial Updates
+      - S&P 500 Financial Updates
+      - S and P 500 Financial Updates
+      - S & P 500 Financial Updates
+      - Standard and Poors 500 Financial Updates
+      - Standard & Poors 500 Financial Updates
+      - Standard and Poor's 500 Financial Updates
+      - Standard & Poor's 500 Financial Updates
+      - S&P Financial Updates
+      - S&P500 Business Updates
+      - S&P 500 Business Updates
+      - S and P 500 Business Updates
+      - S & P 500 Business Updates
+      - Standard and Poors 500 Business Updates
+      - Standard & Poors 500 Business Updates
+      - Standard and Poor's 500 Business Updates
+      - Standard & Poor's 500 Business Updates
+      - S&P Business Updates
+      - S&P500 Market Updates
+      - S&P 500 Market Updates
+      - S and P 500 Market Updates
+      - S & P 500 Market Updates
+      - Standard and Poors 500 Market Updates
+      - Standard & Poors 500 Market Updates
+      - Standard and Poor's 500 Market Updates
+      - Standard & Poor's 500 Market Updates
+      - S&P Market Updates
+      - S&P500 Financial Articles
+      - S&P 500 Financial Articles
+      - S and P 500 Financial Articles
+      - S & P 500 Financial Articles
+      - Standard and Poors 500 Financial Articles
+      - Standard & Poors 500 Financial Articles
+      - Standard and Poor's 500 Financial Articles
+      - Standard & Poor's 500 Financial Articles
+      - S&P Financial Articles
+      - S&P500 Business Articles
+      - S&P 500 Business Articles
+      - S and P 500 Business Articles
+      - S & P 500 Business Articles
+      - Standard and Poors 500 Business Articles
+      - Standard & Poors 500 Business Articles
+      - Standard and Poor's 500 Business Articles
+      - Standard & Poor's 500 Business Articles
+      - S&P Business Articles
+      - S&P500 Market Articles
+      - S&P 500 Market Articles
+      - S and P 500 Market Articles
+      - S & P 500 Market Articles
+      - Standard and Poors 500 Market Articles
+      - Standard & Poors 500 Market Articles
+      - Standard and Poor's 500 Market Articles
+      - Standard & Poor's 500 Market Articles
+      - S&P Market Articles
+      - S&P500 Financial Market
+      - S&P 500 Financial Market
+      - S and P 500 Financial Market
+      - S & P 500 Financial Market
+      - Standard and Poors 500 Financial Market
+      - Standard & Poors 500 Financial Market
+      - Standard and Poor's 500 Financial Market
+      - Standard & Poor's 500 Financial Market
+      - S&P Financial Market
+      - S&P500 Business Market
+      - S&P 500 Business Market
+      - S and P 500 Business Market
+      - S & P 500 Business Market
+      - Standard and Poors 500 Business Market
+      - Standard & Poors 500 Business Market
+      - Standard and Poor's 500 Business Market
+      - Standard & Poor's 500 Business Market
+      - S&P Business Market
+      - S&P500 Stock Market
+      - S&P 500 Stock Market
+      - S and P 500 Stock Market
+      - S & P 500 Stock Market
+      - Standard and Poors 500 Stock Market
+      - Standard & Poors 500 Stock Market
+      - Standard and Poor's 500 Stock Market
+      - Standard & Poor's 500 Stock Market
+      - S&P Stock Market
+      - S&P500 Financial
+      - S&P 500 Financial
+      - S and P 500 Financial
+      - S & P 500 Financial
+      - Standard and Poors 500 Financial
+      - Standard & Poors 500 Financial
+      - Standard and Poor's 500 Financial
+      - Standard & Poor's 500 Financial
+      - S&P Financial
+      - S&P500 Business
+      - S&P 500 Business
+      - S and P 500 Business
+      - S & P 500 Business
+      - Standard and Poors 500 Business
+      - Standard & Poors 500 Business
+      - Standard and Poor's 500 Business
+      - Standard & Poor's 500 Business
+      - S&P Business
+      - S&P500 Stock
+      - S&P 500 Stock
+      - S and P 500 Stock
+      - S & P 500 Stock
+      - Standard and Poors 500 Stock
+      - Standard & Poors 500 Stock
+      - Standard and Poor's 500 Stock
+      - Standard & Poor's 500 Stock
+      - S&P Stock
+      - S&P500
+      - S&P 500
+      - S and P 500
+      - S & P 500
+      - Standard and Poors 500
+      - Standard & Poors 500
+      - Standard and Poor's 500
+      - Standard & Poor's 500
+      - S&P
+      - S&P500 Index
+      - S&P 500 Index
+      - S and P 500 Index
+      - S & P 500 Index
+      - Standard and Poors 500 Index
+      - Standard & Poors 500 Index
+      - Standard and Poor's 500 Index
+      - Standard & Poor's 500 Index
+      - S&P Index
+      - S&P500 Articles
+      - S&P 500 Articles
+      - S and P 500 Articles
+      - S & P 500 Articles
+      - Standard and Poors 500 Articles
+      - Standard & Poors 500 Articles
+      - Standard and Poor's 500 Articles
+      - Standard & Poor's 500 Articles
+      - S&P Articles
+      - S&P500 News
+      - S&P 500 News
+      - S and P 500 News
+      - S & P 500 News
+      - Standard and Poors 500 News
+      - Standard & Poors 500 News
+      - Standard and Poor's 500 News
+      - Standard & Poor's 500 News
+      - S&P News
+      - S&P500 Updates
+      - S&P 500 Updates
+      - S and P 500 Updates
+      - S & P 500 Updates
+      - Standard and Poors 500 Updates
+      - Standard & Poors 500 Updates
+      - Standard and Poor's 500 Updates
+      - Standard & Poor's 500 Updates
+      - S&P Updates
+      - S&P500 Financial News
+      - S&P 500 Financial News
+      - S and P 500 Financial News
+      - S & P 500 Financial News
+      - Standard and Poors 500 Financial News
+      - Standard & Poors 500 Financial News
+      - Standard and Poor's 500 Financial News
+      - Standard & Poor's 500 Financial News
+      - S&P Financial
+    primary_key:
+      columns:
+        - TICKER
+    facts:
+      - name: SENTIMENT_SCORE
+        expr: SENTIMENT_SCORE
+        data_type: FLOAT
+        description: A sentiment score indicating the emotional tone or attitude conveyed by the article, ranging from -1 (very negative) to 1 (very positive), with 0 being neutral.
+        sample_values:
+          - '0.6066350711'
+          - '-0.7197149644'
+          - '0.1861471861'
+        synonyms:
+          - sentiment_rating
+          - sentiment_value
+          - emotional_score
+          - opinion_score
+          - attitude_rating
+          - emotional_rating
+          - tone_score
+        default_aggregation: 7
+    metrics:
+      - expr: COUNT(CASE WHEN SENTIMENT = 'Positive' THEN 1 END)
+        name: Positive_Mentions
+        description: The number of positive mentions of the company in news articles.
+        synonyms:
+          - Positive_Feedback
+          - Good_Comments
+          - Favorable_Mentions
+          - Praise
+          - Appreciation
+          - Commendations
+          - Accolades
+          - Positive_References
+      - expr: COUNT(CASE WHEN SENTIMENT = 'Negative' THEN 1 END)
+        name: Negative_Mentions
+        description: The number of negative mentions of the company in news articles.
+        synonyms:
+          - bad_references
+          - unfavorable_comments
+          - critical_mentions
+          - adverse_references
+          - derogatory_comments
+      - expr: COUNT(CASE WHEN SENTIMENT = 'Positive' THEN 1 END) / COUNT(SENTIMENT)
+        name: Positive_Ratio
+        description: The percentage of positive articles about the company in the S&P 500 index.
+        synonyms:
+          - positive_proportion
+          - favorable_percentage
+          - affirmative_rate
+          - good_ratio
+          - optimistic_proportion
+relationships:
+  - join_type: left_outer
+    left_table: SP_500
+    relationship_columns:
+      - left_column: TICKER
+        right_column: TICKER
+    right_table: SP_500_VISITS
+    relationship_type: many_to_one
+    name: TICKER
+  - name: TICKER_NEWS
+    join_type: left_outer
+    relationship_type: many_to_one
+    left_table: SP_500
+    relationship_columns:
+      - left_column: TICKER
+        right_column: TICKER
+    right_table: SP_500_ARTICLES
+verified_queries:
+  - name: Top 10 mentions
+    question: Show me Top 10 mentioned companies in April
+    use_as_onboarding_question: true
+    sql: SELECT sp.company, COUNT(*) AS article_count FROM sp_500_articles AS a LEFT OUTER JOIN SP_500 AS sp ON a.ticker = sp.ticker WHERE DATE_TRUNC('MONTH', a.publish_date) = DATE_TRUNC('MONTH', CAST('2025-04-01' AS DATE)) GROUP BY a.ticker, sp.company ORDER BY 2 DESC LIMIT 10
+    verified_by: Greg Wolszczak
+    verified_at: 1745468003
+  - name: Bad_mouth
+    question: What are the 10 companies with lowest positive mentions (at least 3 mentions)?
+    use_as_onboarding_question: true
+    sql: WITH article_stats AS (SELECT sp.company, COUNT(CASE WHEN a.sentiment = 'Positive' THEN 1 END) AS positive_count, COUNT(*) AS total_mentions FROM SP_500 AS sp LEFT OUTER JOIN sp_500_articles AS a ON sp.ticker = a.ticker GROUP BY sp.company HAVING total_mentions >= 3) SELECT company, ROUND(positive_count / total_mentions, 2) AS positive_ratio, ROUND(total_mentions, 0) AS total_mentions FROM article_stats ORDER BY positive_ratio ASC LIMIT 10 /* Generated by Cortex Analyst */
+    verified_by: Greg Wolszczak
+    verified_at: 1745467082
+  - name: Weighted_Price
+    question: What is the average price, weigthed by market capitalization by sector?
+    use_as_onboarding_question: true
+    sql: SELECT s.sector, ROUND(SUM(s.price * s.market_cap) / NULLIF(SUM(s.market_cap), 0), 2) AS weighted_avg_price FROM SP_500 AS s GROUP BY s.sector ORDER BY weighted_avg_price DESC NULLS LAST
+    verified_by: Greg Wolszczak
+    verified_at: 1745467299
+  - name: Good_Investments
+    question: What are the good companies to invest in?
+    use_as_onboarding_question: true
+    sql: WITH latest_visits AS (SELECT DISTINCT FIRST_VALUE(v.total_visits) OVER (PARTITION BY v.ticker ORDER BY v.date DESC NULLS LAST) AS latest_visits, FIRST_VALUE(v.total_bounce_rate) OVER (PARTITION BY v.ticker ORDER BY v.date DESC NULLS LAST) AS latest_bounce_rate, v.ticker FROM sp_500_visits AS v), sentiment_stats AS (SELECT a.ticker, CAST(COUNT(DISTINCT CASE WHEN a.sentiment = 'Positive' THEN a.publish_date END) AS FLOAT) / NULLIF(NULLIF(COUNT(DISTINCT a.publish_date), 0), 0) AS positive_ratio FROM sp_500_articles AS a GROUP BY a.ticker), company_metrics AS (SELECT s.ticker, s.company, MIN(v.date) AS start_date, MAX(v.date) AS end_date, s.price_earnings AS pe_ratio, lv.latest_visits, lv.latest_bounce_rate, ss.positive_ratio, s.price_book AS pb_ratio, s.Price_Sales AS ps_ratio FROM SP_500 AS s LEFT OUTER JOIN sp_500_visits AS v ON s.ticker = v.ticker LEFT OUTER JOIN latest_visits AS lv ON s.ticker = lv.ticker LEFT OUTER JOIN sentiment_stats AS ss ON s.ticker = ss.ticker GROUP BY s.ticker, s.company, s.price_earnings, lv.latest_visits, lv.latest_bounce_rate, ss.positive_ratio, s.price_book, s.Price_Sales), normalized_scores AS (SELECT ticker, company, start_date, end_date, ROUND((1 - PERCENT_RANK() OVER (ORDER BY pe_ratio)) * 100, 2) AS pe_score, ROUND(PERCENT_RANK() OVER (ORDER BY latest_visits) * 50 + ((1 - PERCENT_RANK() OVER (ORDER BY latest_bounce_rate)) * 50), 2) AS engagement_score, ROUND(PERCENT_RANK() OVER (ORDER BY positive_ratio) * 100, 2) AS sentiment_score, ROUND((2 - PERCENT_RANK() OVER (ORDER BY pb_ratio) - PERCENT_RANK() OVER (ORDER BY ps_ratio)) * 50, 2) AS valuation_score FROM company_metrics) SELECT ticker, company, start_date, end_date, pe_score, engagement_score, sentiment_score, valuation_score, ROUND((pe_score + engagement_score + sentiment_score + valuation_score) / NULLIF(4, 0), 2) AS composite_score FROM normalized_scores ORDER BY composite_score DESC NULLS LAST LIMIT 10
+    verified_by: Greg Wolszczak
+    verified_at: 1745468362
+  - name: Worst_Investements
+    question: What are the worst companies to invest in?
+    use_as_onboarding_question: true
+    sql: WITH latest_visits AS (SELECT DISTINCT FIRST_VALUE(v.total_visits) OVER (PARTITION BY v.ticker ORDER BY v.date DESC NULLS LAST) AS latest_visits, FIRST_VALUE(v.total_bounce_rate) OVER (PARTITION BY v.ticker ORDER BY v.date DESC NULLS LAST) AS latest_bounce_rate, v.ticker FROM sp_500_visits AS v), sentiment_stats AS (SELECT a.ticker, CAST(COUNT(DISTINCT CASE WHEN a.sentiment = 'Positive' THEN a.publish_date END) AS FLOAT) / NULLIF(NULLIF(NULLIF(COUNT(DISTINCT a.publish_date), 0), 0), 0) AS positive_ratio FROM sp_500_articles AS a GROUP BY a.ticker), company_metrics AS (SELECT s.ticker, s.company, MIN(v.date) AS start_date, MAX(v.date) AS end_date, s.price_earnings AS pe_ratio, lv.latest_visits, lv.latest_bounce_rate, ss.positive_ratio, s.price_book AS pb_ratio, s.Price_Sales AS ps_ratio FROM SP_500 AS s LEFT OUTER JOIN sp_500_visits AS v ON s.ticker = v.ticker LEFT OUTER JOIN latest_visits AS lv ON s.ticker = lv.ticker LEFT OUTER JOIN sentiment_stats AS ss ON s.ticker = ss.ticker GROUP BY s.ticker, s.company, s.price_earnings, lv.latest_visits, lv.latest_bounce_rate, ss.positive_ratio, s.price_book, s.Price_Sales), normalized_scores AS (SELECT ticker, company, start_date, end_date, ROUND(PERCENT_RANK() OVER (ORDER BY pe_ratio DESC) * 100, 2) AS pe_score, ROUND(PERCENT_RANK() OVER (ORDER BY latest_visits DESC) * 50 + PERCENT_RANK() OVER (ORDER BY latest_bounce_rate) * 50, 2) AS engagement_score, ROUND(PERCENT_RANK() OVER (ORDER BY positive_ratio DESC) * 100, 2) AS sentiment_score, ROUND(PERCENT_RANK() OVER (ORDER BY pb_ratio) + PERCENT_RANK() OVER (ORDER BY ps_ratio) * 50, 2) AS valuation_score FROM company_metrics) SELECT ticker, company, start_date, end_date, pe_score, engagement_score, sentiment_score, valuation_score, ROUND((pe_score + engagement_score + sentiment_score + valuation_score) / NULLIF(NULLIF(4, 0), 0), 2) AS composite_score FROM normalized_scores ORDER BY composite_score ASC LIMIT 10 /* Generated by Cortex Analyst */
+    verified_by: Greg Wolszczak
+    verified_at: 1745476764
+custom_instructions: Please never show more than two decimals and 0 decimals for counts.
